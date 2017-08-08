@@ -1,0 +1,111 @@
+@import '../../node_modules/antd/dist/antd.less';
+/* CSS Document */
+html, body, div, span, object, iframe,h1, h2, 
+h3, h4, h5, h6, p, blockquote, pre,abbr, address, cite, code,del, dfn, 
+em, img, ins,kbd, q, samp,small, strong, sub, sup, var,b, i,dl, dt, dd, 
+ol, ul, li,fieldset, form, label, legend,table, caption, tbody, 
+tfoot,thead,tr, th, td,article, aside, canvas, details, figcaption, 
+figure, footer, header, hgroup, menu, nav, section, summary,time, mark, 
+audio, video {
+    margin:0;
+    padding:0;
+    border:0;
+    outline:0;
+    font-size:100%;
+    vertical-align:baseline;
+    background:transparent;
+    outline-style:none;/*FF*/ 
+    font-weight: normal;
+    font-family: '微软雅黑'
+}
+ 
+a{
+    margin:0;
+    padding:0;
+    border:0;
+    font-size:100%;
+    vertical-align:baseline;
+    background:transparent;
+    text-decoration:none;
+     color: #f0f0f0;
+}
+a:hover,a:focus{
+    text-decoration:none;
+    // bblr:expression(this.onFocus=this.blur());/*IE*/
+    outline-style:none;/*FF*/ 
+    }
+table {
+    border-collapse:collapse;
+    border-spacing:0;
+}
+ 
+input, select {
+    vertical-align:middle;
+}
+
+/*css为clearfix，清除浮动*/
+.clearfix::before,
+.clearfix::after{
+    content: "";
+    height: 0;
+    line-height: 0;
+    display: block;
+    visibility: hidden;
+    clear: both;
+}
+.clearfix:after{clear:both;} 
+.clearfix{ 
+    *zoom:1;/*IE/7/6*/
+}
+
+@bg-color:#404040;
+#app{
+    height:100%;
+    .container{
+        height:100%;
+        display:flex;/*设为伸缩容器*/  
+        flex-flow:row;/*伸缩项目单行排列*/  
+    }
+}
+.left-navBar{
+    height: 100%;
+    left: 0;
+    top: 0;
+    background: #404040;
+    position: fixed;
+    // width:145px;
+    .nav-toggle-hide{
+            color: #fff;
+    background-color: #404040;
+    border-color: #404040;
+        margin-top:16px;
+    }
+}
+.content{
+    // margin-left: 160px;
+    width: 100%;
+}
+.topBarUsr{
+    height:60px;
+    background: #fff;
+    ul{
+        float: right;
+        li.active{
+        border-bottom:2px solid @bg-color;
+
+        }
+    }
+    ul li{
+        display: inline-block;
+        height:60px;
+        line-height: 60px;
+        font-size: 12px;
+        cursor: pointer;
+        width:120px;
+        text-align: center;
+    }
+}
+.tab-container{
+    padding:16px;
+    background: #ececec;
+}
