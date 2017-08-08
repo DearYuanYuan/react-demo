@@ -35,7 +35,7 @@ export default class App extends React.Component{
             <div className="container clearfix">
                 <HeadLine collapsed={this.state.collapsed} toggleCollapsed={this.toggleCollapsed.bind(this)}></HeadLine>
                 <div className="content" style={{marginLeft:!this.state.collapsed?'103px':'64px'}}>
-                     <TopBar></TopBar>
+                     <TopBar collapsed = {this.state.collapsed}></TopBar>
                     {this.props.children}
                 </div>
                 

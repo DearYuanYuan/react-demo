@@ -8,7 +8,7 @@ export default class TopBar extends React.Component {
 
     render() {
         return (
-            <div className="topBarUsr clearfix">
+            <div className="topBarUsr clearfix" style={{marginLeft:!this.props.collapsed?'-103px':'-64px'}}>
                 <ul>
                     <li>设置</li>
                     <li>登陆</li>
