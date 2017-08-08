@@ -88,28 +88,38 @@ input, select {
 }
 .topBarUsr{
     width: 100%;
-    height: 60px;
+    height: 50px;
     background: #fff;
     position: fixed;
     ul{
         float: right;
+        margin-right: 24px;
         li.active{
         border-bottom:2px solid @bg-color;
-
+        }
+        li.usr-icon-img{
+            width: 30px;
+            height: 30px;
+            border-radius: 15px;
+            margin-top: 10px;
+            background: url(../img/usr-icon1.jpg) no-repeat center;
+            background-size: contain;
         }
     }
     ul li{
         display: inline-block;
-        height:60px;
-        line-height: 60px;
+        float: left;
+        height:50px;
+        line-height: 50px;
         font-size: 12px;
         cursor: pointer;
         width:120px;
         text-align: center;
     }
+    
 }
 .tab-container{
     padding:16px;
     background: #ececec;
-    margin-top: 60px;
+    margin-top: 50px;
 }

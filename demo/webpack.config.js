@@ -1,6 +1,6 @@
 //webpack.config.js
 var webpack = require('webpack');//引入Webpack模块供我们调用，这里只能使用ES5语法，使用ES6语法会报错
-
+var path = require('path');
 module.exports = {
     devtool: 'eval-source-map',//生成Source Maps,这里选择eval-source-map
     // entry: './app/main.js',//唯一入口文件
@@ -8,7 +8,7 @@ module.exports = {
             'webpack/hot/only-dev-server',
             './app/main.js'],
     output: {//输出目录
-        path: __dirname + '/build',//打包后的js文件存放的地方
+        path: __dirname + '/build/',//打包后的js文件存放的地方
         filename: 'bundle.js'//打包后输出的js的文件名
     },
 
@@ -20,6 +20,13 @@ module.exports = {
                 loader: 'babel-loader'//loader的名称（必须）
             },
             {test: /\.less$/, loader: 'style-loader!css-loader!less-loader'},
+            {test: /\.(gif|png|jpg)$/, loader: 'url-loader?limit=8192'},
+            {test: /\.(woff|woff2|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/, loader: 'file'},
+            {
+                test: /\.js|jsx$/,
+                loaders: ['react-hot', 'babel?presets[]=es2015,presets[]=react,presets[]=stage-0'],
+                include: path.join(__dirname, 'js')
+            }
         ]
     },
 

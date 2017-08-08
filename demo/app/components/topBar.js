@@ -9,10 +9,9 @@ export default class TopBar extends React.Component {
     render() {
         return (
             <div className="topBarUsr clearfix" style={{marginLeft:!this.props.collapsed?'-103px':'-64px'}}>
-                <ul>
-                    <li>设置</li>
-                    <li>登陆</li>
-                    <li>注册</li>
+                <ul className="clearfix">
+                    <li>你好，yuanyuan！</li>
+                    <li className="usr-icon-img"></li>
                 </ul>
                  
             </div>
