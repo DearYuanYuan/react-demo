@@ -1,0 +1,675 @@
+@import "./font-awesome.min.css";
+@font-white:#fff;
+@font-grey:#B2B2B2;
+@font-yellow:#F5A623;
+@bg-cover:#343434;
+@body-bg:#3F3F3F;
+/*公共样式--开始*/
+html, body, div, ul, li, h1, h2, h3, h4, h5, h6, p, dl, dt, dd, ol, form, input, textarea, th, td, select {
+  margin: 0;
+  padding: 0;
+};
+body {
+  font-family: "Helvetica Neue",'Helvetica','Arial',"苹方","微软雅黑",'sans-serif';
+  font-size:12px;
+  color: @font-grey;
+  background:@body-bg;
+}
+h1, h2, h3, h4, h5, h6{font-weight:normal;}
+ul,ol {
+  list-style: none;
+}
+img {
+  border: none;
+  vertical-align: middle;
+}
+a {
+  text-decoration: none;
+  color: @font-grey;
+}
+table {
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+input, textarea,button {
+  outline: none;
+  border: none;
+}
+textarea {
+  resize: none;
+  overflow: auto;
+}
+.inline{
+  display: inline-block;
+}
+.block{
+  display: block;
+}
+.clearfix {
+  zoom: 1;
+}
+.clearfix:after {
+  content: ".";
+  width: 0;
+  height: 0;
+  visibility: hidden;
+  display: block;
+  clear: both;
+  overflow:hidden;
+}
+.ellipse {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.font-yellow{
+  color: @font-yellow;
+}
+//按钮样式
+.common-btn{
+  width:120px;
+  height:38px;
+  line-height: 38px;
+  border-radius: 4px;
+  cursor: pointer;
+  border:1px solid @font-grey;
+}
+.confirm-btn{
+  background: @font-yellow;
+  color: @font-white;
+  border:1px solid @font-yellow;
+}
+.cancel-btn{
+  background: @bg-cover;
+  color: @font-white;
+}
+//input样式
+.common-ipt{
+  border: 1px solid @font-grey;
+  border-radius: 4px;
+  background: @bg-cover;
+  width:320px;
+  height:38px;
+  line-height: 38px;
+  color:@font-grey;
+  padding-left: 40px;
+  cursor: pointer;
+}
+//头部
+header{
+  width:100%;
+  height:50px;
+  line-height: 50px;
+  vertical-align: middle;
+  background: @bg-cover;
+  border-bottom: 1px solid @font-yellow;
+  position: fixed;
+  top:0;
+  left:0;
+  z-index: 6;
+  .logo-8lab{
+    width:80px;
+    height:27px;
+    display: inline-block;
+    margin-left: 30px;
+  }
+  .userSetting{
+    display: inline-block;
+    float: right;
+    margin-right: 12px;
+    li{
+      display: inline-block;
+      margin-right: 12px;
+      img{
+        width: 30px;
+        height:30px;
+      }
+    }
+  }
+  .sign-out{
+    cursor: pointer;
+  }
+}
+//左侧导航
+.nav-aside{
+  position: fixed;
+  z-index: 4;
+  height:100%;
+  width:80px;
+  top:51px;
+  left:0;
+  background: @bg-cover;
+}
+.navBar{
+  li{
+    height:80px;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    i{
+      height:50px;
+      line-height: 50px;
+    }
+  }
+  li.active-nav{
+    background: @body-bg;
+    a{
+      color: @font-yellow;
+    }
+  }
+}
+//右侧内容
+.content{
+  padding: 51px 0 0 80px;
+}
+//交易记录
+.deal-list{
+  margin:0 100px;
+  margin-top: 30px;
+}
+.first-title{
+  font-size: 20px;
+  line-height: 30px;
+  color: @font-white;
+}
+.second-title{
+  font-size: 16px;
+}
+.addNewAssetsBtn{
+  margin-top: 36px;
+}
+.searchText{
+  width:150px;
+  border-radius: 4px 0 0 4px;
+}
+.searchBtn{
+  width: 80px;
+  border-radius: 0 4px 4px 0;
+  height:40px;
+  line-height: 34px;
+}
+.searchDeal{
+  float: right;
+  position: relative;
+  top:34px;
+  i{
+    position: absolute;
+    top:12px;
+    left:12px;
+  }
+}
+.deal-detail-list{
+  margin-top: 30px;
+}
+.single-deal-detail{
+  margin-bottom: 16px;
+}
+.usr-deal-details{
+  border-radius: 6px;
+  border-left: 4px solid @font-yellow;
+  background: @bg-cover;
+  li{
+    display: inline-block;
+    float: left;
+    height: 80px;
+    box-sizing: border-box;
+    margin-right: 60px;
+  }
+  .list-icon{
+    padding:0 16px;
+    line-height: 80px;
+    margin-right: 0;
+  }
+  .deal-assets{
+    padding:20px 0;
+    width:40%;
+  }
+  .deal-usrMsg{
+    padding:20px 0;
+    img{
+      width:40px;
+      height:40px;
+      margin-right: 12px;
+    }
+  }
+  .deal-time{
+    line-height: 80px;
+  }
+  .deal-trans{
+    line-height: 80px;
+    float: right;
+    a{
+      color: @font-yellow;
+      i{
+        margin-right: 6px;
+      }
+    }
+  }
+}
+.detailHistoryCover{
+  position: fixed;
+  width:100%;
+  height:100%;
+  top:0;
+  left:0;
+  background:rgba(0,0,0,.5);
+  z-index: 9;
+}
+.showDealTransHistrty{
+  width:600px;
+  position: absolute;
+  left: 50%;
+  top:50%;
+  margin:-240px 0 0 -300px;
+  background: @bg-cover;
+  padding:24px;
+  h4{
+    font-size: 16px;
+    color: @font-white;
+    i{
+      float: right;
+    }
+  }
+  h5{
+    font-size:12px;
+    line-height: 30px;
+    border-bottom: 1px solid #444851;
+  }
+}
+.addOrTransAssets{
+  width:270px;
+  margin-left: -160px;
+  .addOrTransAssets-params{
+    position:relative;
+    p{
+      font-size: 12px;
+      line-height: 40px;
+    }
+    p.transContent{
+      line-height: 20px;
+    }
+    .assetsIcon-ipt{
+      width:230px;
+      height: 38px;
+      line-height: 38px;
+    }
+    .assetsIcon-user{
+      position: absolute;
+      top:55px;
+      left:15px;
+    }
+    .assetsIcon-select{
+      position: absolute;
+      top:55px;
+      right:15px;
+      cursor: pointer;
+    }
+  }
+}
+.transBtnGaps{
+  margin-top: 24px;
+}
+.getIptList{
+  width:100%;
+  background: @body-bg;
+  position: absolute;
+  z-index: 10;
+  border-radius: 4px;
+  height: 160px;
+  overflow-y: auto;
+  h6{
+    color: @font-white;
+    line-height: 28px;
+    padding-left: 20px;
+    cursor: pointer;
+  }
+  h6:hover{
+    background: @font-yellow;
+  }
+}
+.fileLimit{
+  line-height: 20px;
+  margin-bottom: 12px;
+}
+.upload-file{
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 118px;
+  text-align: center;
+  line-height: 24px;
+  height: 24px;
+  background: @font-yellow;
+}
+.assets-content{
+  width:246px;
+  background: @bg-cover;
+  height:80px;
+  border: 1px solid @font-grey;
+  border-radius: 4px;
+  color: @font-grey;
+  padding:12px;
+  overflow: hidden;
+}
+.gaps{
+  margin-right: 30px;
+}
+.left-deal-assets-detail{
+  width:220px;
+  float: left;
+  //margin-right: 48px;
+  h6{
+    font-size:12px;
+    line-height: 50px;
+    color: @font-white;
+  }
+  p{
+    font-size: 12px;
+    line-height: 20px;
+  }
+}
+.right-deal-trans-detail{
+  float: right;
+  height:350px;
+  margin-top: 20px;
+  overflow-y: auto;
+}
+.assets-trans-list{
+  li{
+    background: #3F3F3F;
+    border-radius: 4px;
+    padding:16px;
+    margin-bottom: 20px;
+    b{
+      display: inline-block;
+      vertical-align: middle;
+      margin-right: 16px;
+      img{
+        width:40px;
+        height:40px;
+      }
+    }
+    b.trans-type-time{
+      margin-right: 80px;
+    }
+  }
+}
+//login
+.login-page{
+  width: 100%;
+  height:100%;
+  position: fixed;
+  top:0;
+  left: 0;
+  background: url(../img/escheresque_ste.png) repeat;
+}
+.left-project-msg{
+  width:60%;
+  height:100%;
+  float: left;
+  box-sizing: border-box;
+  padding-left: 100px;
+}
+.login-logo-icon{
+  margin-top: 30px;
+}
+.errorMsg{
+  line-height: 40px;
+  text-align: center;
+  color: @font-yellow;
+  font-size: 12px;
+}
+.project-intro{
+  width:427px;
+  margin:20% auto;
+  h1{
+    font-size: 36px;
+    line-height: 80px;
+    color: @font-white;
+  }
+  h2{
+    font-size: 16px;
+    line-height: 28px;
+    margin-bottom: 60px;
+  }
+}
+.jump-other-website{
+  width: 50%;
+  position: fixed;
+  bottom: 60px;
+  li{
+    display: inline-block;
+    width: 30%;
+  }
+}
+.right-project-login{
+  float: left;
+  width: 40%;
+  height:100%;
+  overflow-y: auto;
+  background: @bg-cover;
+  .login-form{
+    width:360px;
+    margin:30% auto;
+  }
+  h3{
+    font-size: 24px;
+    color: @font-white;
+    line-height: 30px;
+  }
+  .login-btn{
+    width:360px;
+    margin-top: 40px;
+  }
+  .form-ipt-cover{
+    margin-top: 14px;
+    i{
+      position: relative;
+      top:27px;
+      left: 16px;
+    }
+    p{
+      font-size: 12px;
+    }
+  }
+  .apply-form{
+    width:370px;
+    margin:10% auto;
+    height: 680px;
+  }
+}
+.userApply-icon{
+  width: 230px;
+  float: left;
+}
+.userApply-ipt{
+  width: 187px;
+}
+.uploadIcon{
+  width: 118px;
+  height:118px;
+  float: right;
+  font-size: 12px;
+  background: @font-yellow;
+  border-radius: 4px;
+  margin-top: -36px;
+  text-align: center;
+  line-height: 118px;
+  position: relative;
+  img{
+    width: 60px;
+    height:60px;
+  }
+}
+.change-usr-icon{
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 118px;
+  text-align: center;
+  line-height: 24px;
+  height: 24px;
+  background: rgba(0,0,0,.5);
+}
+//上传头像
+#uploadFileForm{
+  width:118px;
+  height:24px;
+  position: relative;
+  top:-5px;
+}
+.selectUsrIcon{
+  width:118px;
+  height:24px;
+  position: absolute;
+  top:0;
+  left: 0;
+  opacity: 0;
+  z-index: 9;
+}
+//账户信息
+.account-content{
+  width:370px;
+  margin:6% auto;
+  float:none;
+  background: @body-bg;
+  height: inherit;
+  input{
+    background: @body-bg;
+  }
+  .apply-form{
+    height: inherit;
+  }
+}
+.changePassword{
+  font-size: 12px;
+  color: @font-yellow;
+  cursor: pointer;
+  line-height: 40px;
+}
+.changePwdBox{
+  width:364px;
+  margin:-240px 0 0 -214px;
+  p.changePwd-btn-orNot{
+    margin: 20px auto;
+    text-align: center;
+  }
+}
+  //页码
+.pagination-all {
+  width: 100%;
+  text-align: center;
+  font-size: 12px;
+  margin:20px 0;
+}
+.pagination {
+  vertical-align: middle;
+  padding-top: 4px;
+  display: inline-block;
+}
+/*页码框*/
+.pageNum {
+  vertical-align: middle;
+  border-radius: 4px;
+  padding-left: 10px;
+  width: 42px;
+  height: 24px;
+  background-color: @bg-cover;
+  color: @font-white;
+  font-size: 10px;
+  margin-right: 10px;
+}
+.searchNum {
+  cursor: pointer;
+  margin-left: 10px;
+  height: 24px;
+}
+.pageCount {
+  display: inline-block; // margin: 20px 0;
+  margin-left: 10px; // width:128px;
+  height: 24px;
+}
+.pagination li {
+  margin: 0 2px; // border-radius: 50%;
+}
+.pagination>li {
+  display: inline-block;
+}
+.pagination>li>a {
+  position: relative;
+  float: left;
+  padding: 2px 5px;
+  text-decoration: none;
+  background-color: transparent;
+  border: none;
+}
+.pagination>li>a>span {
+  font-size: 12px;
+  line-height: 10px;
+}
+.pagination>.active>a,
+.pagination>.active>a:focus,
+.pagination>.active>a:hover,
+.pagination>.active>span,
+.pagination>.active>span:focus,
+.pagination>.active>span:hover {
+  z-index: 3;
+  color: @font-white;
+  background-color: @font-yellow;
+  cursor: default;
+  border-radius: 4px;
+}
+.pagination>.disabled>a,
+.pagination>.disabled>a:hover,
+.pagination>.disabled>a:focus,
+.pagination>.disabled>span,
+.pagination>.disabled>span:hover,
+.pagination>.disabled>span:focus {
+  // color: #fff;
+  cursor: not-allowed;
+  background-color: transparent;
+  border-color: @font-yellow;
+  border-radius: 8px;
+}
+.pagination .disabled {
+  background-color: transparent;
+  width: 16px;
+  border-color: rgba(34, 186, 207, .2);
+}
+//loading 样式
+.loadingText{
+  text-align: center;
+  height:240px;
+  line-height: 240px;
+}
+.actionLoading{
+  position: absolute;
+  top:0;
+  left:0;
+  width: 100%;
+  height:100%;
+  line-height: 500px;
+  background: rgba(0,0,0,.5);
+}
+// 滚动条
+/*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/
+div::-webkit-scrollbar
+{
+  width: 8px;
+  height: 16px;
+  background-color: @bg-cover;
+}
+/*定义滚动条轨道 内阴影+圆角*/
+div::-webkit-scrollbar-track
+{
+  -webkit-box-shadow: inset 0 0 16px rgba(0,0,0,0.3);
+  border-radius: 16px;
+  background-color: @bg-cover;
+}
+/*定义滑块 内阴影+圆角*/
+div::-webkit-scrollbar-thumb
+{
+  border-radius: 16px;
+  -webkit-box-shadow: inset 0 0 16px rgba(0,0,0,.3);
+  background-color: @font-yellow;
+}
