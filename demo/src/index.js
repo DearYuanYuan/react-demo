@@ -10,7 +10,9 @@ import Account from "./components/Account"
 import Home from "./components/Home"
 import HeadLine from './components/HeadLine.js'
 import loginDate from './data/login.json'
+import Validator from './func/form.js'
 import 'whatwg-fetch'
+require('./func/form.js')
 class App extends React.Component {
     constructor(props) {
         super(props);
@@ -122,54 +124,37 @@ class App extends React.Component {
     * 登录
     * */
     login(){
-        /**/
-        var self = this
-        var username = $('.login-username').val();
-        var password = $('.login-password').val();
-        
-        var url = './data/login.json'
-        fetch(url)
-        .then(function(response) {
-          console.log(response.status)
-          console.log(response)
-        }).catch(function(ex) {
-          console.log('parsing failed', ex)
-        })     
-        //console.log(username,password)
-        // $.ajax({
-        //     url: 'http://localhost:3000/favicon.ico',
-        //     type: 'POST',
-        //     dataType: 'json',
-        //     cache: false,
-        //     data:{
-        //         username: username,
-        //         password: password,
-        //     },
-        //     success:function(data){
-        //         console.log(JSON.stringify(data))
-        //         if(data.code == 200 || data.code == 203){
-        //             window.location.href = '#/deal'
-        //             self.setState({
-        //                 showLogin:false,
-        //                 userName:username,
-        //                 error:'',
-        //             })
-        //         }else{
-        //             self.setState({
-        //                 error:data.message
-        //             });
-        //         }
-        //     },
-        //     error:function(){
-        //         self.setState({
-        //             error:"用户名或密码错误"
-        //         });
-        //     }
-        //   })
-        // // this.setState({
-        // //   showLogin:false
-        // // })
-        // //  window.location.href = '#/deal'
+        var registerForm = document.getElementById('registerForm')
+        var errorMsg = document.getElementById('errorMsg')
+        //新建一个验证的类，并加入需要验证的项
+        var validataFunc = function(){
+            var validator = new Validator()
+            validator.add(registerForm.userName,
+                [{strategy:'isNonEmpty',errorMessage:'用户名不能为空'},
+                    {strategy:'minLength:6',errorMessage:'用户名不能少于6位'}]
+            );
+            validator.add(registerForm.password,
+                [{strategy:'isNonEmpty',errorMessage:'密码不能为空'},
+                    {strategy:'minLength:6',errorMessage:'密码不能少于6位'}]
+            );
+            var errorMessage = validator.start()
+            return errorMessage
+        }
+
+        //调用
+        registerForm.onsubmit = function(){
+            var errorMessage = validataFunc();
+            if(errorMessage){
+                errorMsg.innerText = errorMessage
+                return false;
+            }else{
+                this.setState({
+                    showLogin:false
+                })
+                window.location.href = '#/deal'
+                errorMsg.innerText = ""
+            }
+        }
     }
     /*
     * 删除cookie

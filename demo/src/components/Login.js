@@ -69,24 +69,26 @@ export default class Login extends React.Component {
                 <div className="right-project-login">
                     {
                         this.props.loginOrApply &&
+                        <form action="" method="post" id="registerForm">
                         <div className="login-form" onKeyDown={this.props.keyLogin.bind(this)}>
                             <h3>登录</h3>
                             <div className="form-ipt-cover">
                                 <p>用户名</p>
                                 <input type="text" style={{display:'none'}}/>
                                 <i className="fa fa-user fa-lg font-yellow"></i>
-                                <input type="text" className="common-ipt login-username"/>
+                                <input type="text" className="common-ipt login-username" name="userName"/>
                             </div>
                             <div className="form-ipt-cover">
                                 <p>密码</p>
                                 <input type="password" style={{display:'none'}}/>
                                 <i className="fa fa-lock fa-lg font-yellow"></i>
-                                <input type="password" className="common-ipt login-password"/>
+                                <input type="password" className="common-ipt login-password" name="password"/>
                             </div>
 
                             <button className="common-btn confirm-btn login-btn" onClick={this.props.login.bind(this)}>登录</button>
-                            <p className="errorMsg">{this.props.error}</p>
+                            <p className="errorMsg" id="errorMsg">{this.props.error}</p>
                         </div>
+                        </form>
                     }
                     {
                         !this.props.loginOrApply &&
