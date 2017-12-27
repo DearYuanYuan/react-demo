@@ -76,13 +76,13 @@ export default class Login extends React.Component {
                                 <p>用户名</p>
                                 <input type="text" style={{display:'none'}}/>
                                 <i className="fa fa-user fa-lg font-yellow"></i>
-                                <input type="text" className="common-ipt login-username" name="userName"/>
+                                <input type="text" className="common-ipt login-username" name="userName" value='yuanyuan'/>
                             </div>
                             <div className="form-ipt-cover">
                                 <p>密码</p>
                                 <input type="password" style={{display:'none'}}/>
                                 <i className="fa fa-lock fa-lg font-yellow"></i>
-                                <input type="password" className="common-ipt login-password" name="password"/>
+                                <input type="password" className="common-ipt login-password" name="password" value='111111'/>
                             </div>
 
                             <button className="common-btn confirm-btn login-btn" onClick={this.props.login.bind(this)}>登录</button>

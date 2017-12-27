@@ -9,6 +9,7 @@ html, body, div, ul, li, h1, h2, h3, h4, h5, h6, p, dl, dt, dd, ol, form, input,
   margin: 0;
   padding: 0;
 };
+
 body {
   font-family: "Helvetica Neue",'Helvetica','Arial',"苹方","微软雅黑",'sans-serif';
   font-size:12px;
@@ -19,22 +20,27 @@ h1, h2, h3, h4, h5, h6{font-weight:normal;}
 ul,ol {
   list-style: none;
 }
+
 img {
   border: none;
   vertical-align: middle;
 }
+
 a {
   text-decoration: none;
   color: @font-grey;
 }
+
 table {
   border-collapse: collapse;
   table-layout: fixed;
 }
+
 input, textarea,button {
   outline: none;
   border: none;
 }
+
 textarea {
   resize: none;
   overflow: auto;
@@ -48,6 +54,7 @@ textarea {
 .clearfix {
   zoom: 1;
 }
+
 .clearfix:after {
   content: ".";
   width: 0;
@@ -57,11 +64,13 @@ textarea {
   clear: both;
   overflow:hidden;
 }
+
 .ellipse {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
 .font-yellow{
   color: @font-yellow;
 }
@@ -105,7 +114,6 @@ header{
   border-bottom: 1px solid @font-yellow;
   position: fixed;
   top:0;
-  left:0;
   z-index: 6;
   .logo-8lab{
     width:80px;
@@ -137,7 +145,6 @@ header{
   height:100%;
   width:80px;
   top:51px;
-  left:0;
   background: @bg-cover;
 }
 .navBar{
@@ -161,6 +168,7 @@ header{
 //右侧内容
 .content{
   padding: 51px 0 0 80px;
+
 }
 //交易记录
 .deal-list{
@@ -202,7 +210,9 @@ header{
   margin-top: 30px;
 }
 .single-deal-detail{
+
   margin-bottom: 16px;
+
 }
 .usr-deal-details{
   border-radius: 6px;
@@ -213,7 +223,7 @@ header{
     float: left;
     height: 80px;
     box-sizing: border-box;
-    margin-right: 60px;
+    margin-right: 20px;
   }
   .list-icon{
     padding:0 16px;
@@ -222,14 +232,24 @@ header{
   }
   .deal-assets{
     padding:20px 0;
-    width:40%;
+    width:26%;
+    margin-right: 60px;
   }
   .deal-usrMsg{
     padding:20px 0;
+    width:15%;
     img{
       width:40px;
       height:40px;
       margin-right: 12px;
+      border-radius: 20px;
+    }
+    b{
+      display: inline-block;
+      width:50%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
   }
   .deal-time{
@@ -238,12 +258,18 @@ header{
   .deal-trans{
     line-height: 80px;
     float: right;
+    margin-right: 60px;
     a{
       color: @font-yellow;
       i{
         margin-right: 6px;
       }
     }
+  }
+  .deal-status{
+    line-height: 80px;
+    width:12%;
+    text-align: center;
   }
 }
 .detailHistoryCover{
@@ -315,7 +341,7 @@ header{
   position: absolute;
   z-index: 10;
   border-radius: 4px;
-  height: 160px;
+  max-height: 160px;
   overflow-y: auto;
   h6{
     color: @font-white;
@@ -330,7 +356,9 @@ header{
 .fileLimit{
   line-height: 20px;
   margin-bottom: 12px;
+  //text-align: right;
 }
+
 .upload-file{
   position: absolute;
   left: 0;
@@ -362,6 +390,15 @@ header{
     font-size:12px;
     line-height: 50px;
     color: @font-white;
+    .file-name-msg{
+      padding:4px 8px;
+      background: #3F3F3F;
+      border-radius: 4px;
+    }
+    .deal-status{
+      font-size: 12px;
+      color: #FFFFFF;
+    }
   }
   p{
     font-size: 12px;
@@ -373,6 +410,7 @@ header{
   height:350px;
   margin-top: 20px;
   overflow-y: auto;
+  width:360px;
 }
 .assets-trans-list{
   li{
@@ -387,6 +425,7 @@ header{
       img{
         width:40px;
         height:40px;
+        border-radius: 20px;
       }
     }
     b.trans-type-time{
@@ -409,6 +448,7 @@ header{
   float: left;
   box-sizing: border-box;
   padding-left: 100px;
+
 }
 .login-logo-icon{
   margin-top: 30px;
@@ -442,41 +482,43 @@ header{
     width: 30%;
   }
 }
+
 .right-project-login{
   float: left;
   width: 40%;
   height:100%;
   overflow-y: auto;
   background: @bg-cover;
-  .login-form{
-    width:360px;
-    margin:30% auto;
-  }
   h3{
     font-size: 24px;
     color: @font-white;
     line-height: 30px;
   }
-  .login-btn{
-    width:360px;
-    margin-top: 40px;
+}
+.login-form{
+  width:360px;
+  margin:30% auto;
+}
+
+.login-btn{
+  width:360px;
+  margin-top: 40px;
+}
+.form-ipt-cover{
+  margin-top: 14px;
+  i{
+    position: relative;
+    top:27px;
+    left: 16px;
   }
-  .form-ipt-cover{
-    margin-top: 14px;
-    i{
-      position: relative;
-      top:27px;
-      left: 16px;
-    }
-    p{
-      font-size: 12px;
-    }
+  p{
+    font-size: 12px;
   }
-  .apply-form{
-    width:370px;
-    margin:10% auto;
-    height: 680px;
-  }
+}
+.apply-form{
+  width:370px;
+  margin:10% auto;
+  height: 680px;
 }
 .userApply-icon{
   width: 230px;
@@ -487,7 +529,7 @@ header{
 }
 .uploadIcon{
   width: 118px;
-  height:118px;
+  height:138px;
   float: right;
   font-size: 12px;
   background: @font-yellow;
@@ -497,8 +539,11 @@ header{
   line-height: 118px;
   position: relative;
   img{
-    width: 60px;
-    height:60px;
+    width: 80px;
+    height:80px;
+    //padding:10px;
+    background-color:#fff;
+    border-radius: 40px;
   }
 }
 .change-usr-icon{
@@ -510,24 +555,28 @@ header{
   line-height: 24px;
   height: 24px;
   background: rgba(0,0,0,.5);
+  color: #f0f0f0;
+  font-size: 12px;
 }
 //上传头像
 #uploadFileForm{
   width:118px;
   height:24px;
   position: relative;
-  top:-5px;
+  top:-4px;
 }
 .selectUsrIcon{
   width:118px;
   height:24px;
   position: absolute;
-  top:0;
+  bottom:0;
   left: 0;
   opacity: 0;
   z-index: 9;
 }
+
 //账户信息
+
 .account-content{
   width:370px;
   margin:6% auto;
@@ -555,6 +604,8 @@ header{
     text-align: center;
   }
 }
+
+
   //页码
 .pagination-all {
   width: 100%;
@@ -631,6 +682,7 @@ header{
   border-color: @font-yellow;
   border-radius: 8px;
 }
+
 .pagination .disabled {
   background-color: transparent;
   width: 16px;
@@ -643,14 +695,17 @@ header{
   line-height: 240px;
 }
 .actionLoading{
-  position: absolute;
+  position: fixed;
   top:0;
   left:0;
   width: 100%;
   height:100%;
   line-height: 500px;
   background: rgba(0,0,0,.5);
+  z-index: 999;
+  padding-top: 10%;
 }
+
 // 滚动条
 /*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/
 div::-webkit-scrollbar
@@ -659,6 +714,7 @@ div::-webkit-scrollbar
   height: 16px;
   background-color: @bg-cover;
 }
+
 /*定义滚动条轨道 内阴影+圆角*/
 div::-webkit-scrollbar-track
 {
@@ -666,10 +722,36 @@ div::-webkit-scrollbar-track
   border-radius: 16px;
   background-color: @bg-cover;
 }
+
 /*定义滑块 内阴影+圆角*/
 div::-webkit-scrollbar-thumb
 {
   border-radius: 16px;
   -webkit-box-shadow: inset 0 0 16px rgba(0,0,0,.3);
   background-color: @font-yellow;
+}
+
+
+.reLoginBox{
+  position: fixed;
+  background:rgba(0,0,0,.5);
+  left: 0;
+  top: 0;
+  z-index: 99;
+  width: 100%;
+  height: 100%;
+  .re-login-form{
+    position: absolute;
+    width: 360px;
+    left: 50%;
+    top: 50%;
+    margin: -187px -228px;
+    background: #343434;
+    padding: 48px;
+    h3{
+      font-size: 14px;
+      color: @font-white;
+      line-height: 30px;
+    }
+  }
 }

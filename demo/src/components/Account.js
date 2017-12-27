@@ -3,12 +3,13 @@ import React from "react";
 import $ from 'jquery';
 
 import LoadingAction from './ActionLoading.js'
+import LoginBox from  './LoginBox'
 /* 首页 */
 export default class HeadLine extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            imgSrc:'', //图片地址
+            imgSrc:null, //图片地址
             changePwd:false, //修改密码弹框
             errorModifyMsg:'', //修改用户信息错误提示
             errorPwdMsg:'', //修改密码错误提示
@@ -16,7 +17,11 @@ export default class HeadLine extends React.Component {
             currentUsrName:'',//当前用户的用户名
             currentUsrPhone:'',//当前用户的手机号码
             currentUsrEmail:'',//当前用户的邮箱
+            currentUsrDep:'',
+            currentUsrJob:'',
             showLoadingAction:false,//ajax请求loading效果
+            overFlowFileSize:false,//是否显示上传头像提示
+            loginTimeout:false,
         }
     }
     /*
@@ -46,6 +51,13 @@ export default class HeadLine extends React.Component {
                         currentUsrName:data.user_detail.username,
                         currentUsrPhone:data.user_detail.phone,
                         currentUsrEmail:data.user_detail.email,
+                        currentUsrDep:data.user_detail.department,
+                        currentUsrJob:data.user_detail.job,
+                        imgSrc:data.user_detail.photo,
+                    })
+                }else if(data.code==210){
+                    self.setState({
+                        loginTimeout:true,
                     })
                 }
             }
@@ -53,15 +65,16 @@ export default class HeadLine extends React.Component {
     }
     //todo 上传照片
     handleUploadImg(){
+
         var file = $('#uploadFileForm .selectUsrIcon')[0].files[0]
         if(file.size/1000>100){
             //当文件大于1M
             this.setState({
-                overFlowFileSize:'文件超过100KB，请重新选择'
+                overFlowFileSize:'图片大小超过100KB，请重新选择'
             })
             //清空所选的文件
             var fileUp = $('#uploadFileForm .selectUsrIcon')
-            fileUp.after(file.clone().val(''))
+            fileUp.after(fileUp.clone().val(''))
             fileUp.remove()
         }else{
             var reader = new FileReader();
@@ -69,8 +82,8 @@ export default class HeadLine extends React.Component {
             reader.onload = function(e){
                 var self = this;
                 self.setState({
-                    imgSize:file.size,
-                    imgSrc:e.target.result
+                    imgSrc:e.target.result,
+                    overFlowFileSize:false,
                 })
             }.bind(this)
             reader.readAsDataURL(file);
@@ -94,7 +107,7 @@ export default class HeadLine extends React.Component {
         var usrOldPwd = $('.apply-old-pwd').val();
         var usrNewPwd = $('.apply-new-pwd').val();
         var usrNextPwd = $('.apply-next-pwd').val();
-        var rePwd = /^[a-zA-Z0-9]{6,20}/
+        var rePwd = /^[a-zA-Z0-9_]{6,18}/
         if(usrOldPwd==''){
             this.setState({
                 errorPwdMsg:'请输入旧密码'
@@ -112,7 +125,7 @@ export default class HeadLine extends React.Component {
         }
         else if(!rePwd.test(usrNewPwd)){
             this.setState({
-                errorPwdMsg:'密码规则：6-20位数字字母'
+                errorPwdMsg:'密码规则：6-18位数字字母下划线'
             })
         }
         else if(usrNewPwd!=usrNextPwd){
@@ -139,9 +152,18 @@ export default class HeadLine extends React.Component {
                     // console.log(JSON.stringify(data))
                     if(data.code == 200){
                         self.setState({
-                            errorPwdMsg:'',
-                            changePwd:false,
-                            showLoadingAction:false,
+                            errorPwdMsg:'密码修改成功',
+                        })
+                        setTimeout(function () {
+                            self.setState({
+                                errorPwdMsg:'',
+                                changePwd:false,
+                                showLoadingAction:false,
+                            })
+                        },2000)
+                    }else if(data.code==210){
+                        self.setState({
+                            loginTimeout:true,
                         })
                     }else{
                         self.setState({
@@ -152,7 +174,7 @@ export default class HeadLine extends React.Component {
                 })
                 .error(function(){
                     self.setState({
-                        errorPwdMsg:"修改失败",
+                        errorPwdMsg:"服务器繁忙，请稍后重试～",
                         showLoadingAction:false,
                     });
                 });
@@ -168,23 +190,37 @@ export default class HeadLine extends React.Component {
     handleConfirmModify(){
         //chain_user/modify
         var realName = $('.apply-real-name').val();
+        var userDep = $('.apply-usr-dep').val();
+        var userJob = $('.apply-usr-job').val();
         var usrPhone = $('.apply-usr-phone').val();
         var usrEmail = $('.apply-usr-email').val();
-
-        var reRealName = /^[\u4e00-\u9fa5A-Za-z]{2,5}/
+        var reRealName = /^[\u4e00-\u9fa5A-Za-z]{2,20}$/
+        var reJob =  /^[\u4e00-\u9fa5A-Za-z]{1,20}$/
         var reEmail = /^[A-Za-z\d]+([-_.][A-Za-z\d]+)*@([A-Za-z\d]+[-.])+[A-Za-z\d]{2,4}$/
         var rePhone = /^0?(13[0-9]|15[012356789]|17[013678]|18[0-9]|14[57])[0-9]{8}$/
 
-        if(realName==''&&usrPhone==''&&usrEmail==''){
+        if(realName==''&&usrPhone==''&&usrEmail==''&&userDep==''&&userJob==''&&!$('#uploadFileForm .selectUsrIcon')[0].files[0]){
             this.setState({
                 errorModifyMsg:'请输入您要修改的项'
             })
         }
         else if(!reRealName.test(realName) && realName!='' ){
             this.setState({
-                errorModifyMsg:'请输入正确的姓名'
+                errorModifyMsg:'请输入正确的姓名（字母汉字2-20位）'
             })
             $('.apply-real-name').focus()
+        }
+        else if(!reJob.test(userDep) && userDep!='' ){
+            this.setState({
+                errorModifyMsg:'职位请输入1-20位数字字母汉字'
+            })
+            $('.apply-usr-dep').focus()
+        }
+        else if(!reJob.test(userJob) && userJob!='' ){
+            this.setState({
+                errorModifyMsg:'职位请输入1-20位数字字母汉字'
+            })
+            $('.apply-usr-job').focus()
         }
         else if(!rePhone.test(usrPhone) && usrPhone!='' ){
             this.setState({
@@ -203,16 +239,21 @@ export default class HeadLine extends React.Component {
             self.setState({
                 showLoadingAction:true,
             })
+            var formData = new FormData();
+            formData.append('name',realName)
+            formData.append('email',usrEmail)
+            formData.append('phone',usrPhone)
+            formData.append('department',userDep)
+            formData.append('job',userJob)
+            formData.append('file',$('#uploadFileForm .selectUsrIcon')[0].files[0])
             $.ajax({
                 url: "api/chain_user/modify/",
                 type: 'POST',
                 dataType: 'json',
                 cache: false,
-                data:{
-                    name:realName,
-                    email:usrEmail,
-                    phone:usrPhone,
-                }
+                contentType: false,
+                processData: false,
+                data:formData
             })
                 .success(function(data){
                     // console.log(JSON.stringify(data))
@@ -226,7 +267,11 @@ export default class HeadLine extends React.Component {
                             self.setState({
                                 errorModifyMsg:''
                             })
-                        },1000)
+                        },2000)
+                    }else if(data.code==210){
+                        self.setState({
+                            loginTimeout:true,
+                        })
                     }else{
                         self.setState({
                             errorModifyMsg:data.message,
@@ -236,7 +281,7 @@ export default class HeadLine extends React.Component {
                 })
                 .error(function(){
                     self.setState({
-                        errorModifyMsg:"修改失败",
+                        errorModifyMsg:"服务器繁忙，请稍后重试～",
                         showLoadingAction:false,
                     });
                 });
@@ -259,6 +304,10 @@ export default class HeadLine extends React.Component {
 
         return (
             <div className="account-content right-project-login">
+                {
+                    this.state.loginTimeout &&
+                    <LoginBox/>
+                }
                 <div className="apply-form">
                     <h3>账户信息</h3>
                     <h4>修改您的账户信息</h4>
@@ -278,18 +327,37 @@ export default class HeadLine extends React.Component {
                             <input type="text" className="common-ipt userApply-ipt apply-usr-name" value={this.state.currentUsrName} readOnly/>
                         </div>
                         <div className="uploadIcon">
-                            <img src={this.state.imgSrc==''?'./static/img/Avatar.png':this.state.imgSrc} alt=""/>
-                            {/*<form id= "uploadFileForm" className="clearfix" encType="multipart/form-data" >*/}
-                                {/*<input type="file" className="selectUsrIcon"*/}
-                                       {/*accept='image/jpg,image/jpeg,image/png,image/svg'*/}
-                                       {/*onChange={this.handleUploadImg.bind(this)}/>*/}
-                                {/*<button className="change-usr-icon" type="button" >更换头像</button>*/}
-                                {/*/!*<p className="fileLimit">已上传 {this.state.imgSize/1000} kb <br/><b>头像最大不超过100KB</b></p>*!/*/}
-                            {/*</form>*/}
+                            <img src={!this.state.imgSrc?'./static/img/Avatar.png':this.state.imgSrc} alt=""/>
+                            <form id= "uploadFileForm" className="clearfix" encType="multipart/form-data" >
+                                <input type="file" className="selectUsrIcon"
+                                       accept='image/jpg,image/jpeg,image/png,image/svg'
+                                       onChange={this.handleUploadImg.bind(this)}/>
+                                <button className="change-usr-icon" type="button" >更换头像</button>
+
+                            </form>
+
                         </div>
+
                     </div>
+                    {
+                        this.state.overFlowFileSize &&
+                        <p className="fileLimit">{this.state.overFlowFileSize}</p>
+                    }
+
                     <div className="form-ipt-cover">
                         <p>姓姓名一栏请填写真实姓名，便于管理员审核。用户名可与姓名不同，但只可包含2～ 20位中英文、数字和下划线。</p>
+                    </div>
+                    <div className="form-ipt-cover">
+                        <p>部门</p>
+                        <input type="text" style={{display:'none'}}/>
+                        <i className="fa fa-user fa-lg font-yellow"></i>
+                        <input type="text" className="common-ipt apply-usr-dep" placeholder={this.state.currentUsrDep}/>
+                    </div>
+                    <div className="form-ipt-cover">
+                        <p>职位</p>
+                        <input type="text" style={{display:'none'}}/>
+                        <i className="fa fa-user fa-lg font-yellow"></i>
+                        <input type="text" className="common-ipt apply-usr-job" placeholder={this.state.currentUsrJob}/>
                     </div>
                     <div className="form-ipt-cover">
                         <p>电话</p>

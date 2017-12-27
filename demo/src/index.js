@@ -13,6 +13,8 @@ import loginDate from './data/login.json'
 import Validator from './func/form.js'
 import 'whatwg-fetch'
 require('./func/form.js')
+let fetchUrl = 'http://139.196.253.89:8080'
+
 class App extends React.Component {
     constructor(props) {
         super(props);
@@ -114,16 +116,18 @@ class App extends React.Component {
         }
         else{
            this.setState({
-            loginOrApply:!this.state.loginOrApply,
+              loginOrApply:!this.state.loginOrApply,
               error:''
            })
-           window.location.href = '#/'     
+        //    window.location.href = '#/'     
         }
     }
+
     /*
     * 登录
     * */
-    login(){
+    login(e){
+
         var registerForm = document.getElementById('registerForm')
         var errorMsg = document.getElementById('errorMsg')
         //新建一个验证的类，并加入需要验证的项
@@ -140,7 +144,7 @@ class App extends React.Component {
             var errorMessage = validator.start()
             return errorMessage
         }
-
+        
         //调用
         registerForm.onsubmit = function(){
             var errorMessage = validataFunc();
@@ -148,58 +152,60 @@ class App extends React.Component {
                 errorMsg.innerText = errorMessage
                 return false;
             }else{
-                this.setState({
-                    showLogin:false
-                })
-                window.location.href = '#/deal'
-                errorMsg.innerText = ""
+                errorMsg.innerText = "";
+                return true
             }
         }
+
+        e.preventDefault();
+
+        if(registerForm.onsubmit()){
+            var self = this
+            var username = $('.login-username').val();
+            var password = $('.login-password').val();
+            //console.log(username,password)
+
+            var formData = new FormData();
+            formData.append('username',username)
+            formData.append('password',password)
+            fetch(fetchUrl+'/api/login/',
+            {
+                method:'POST',
+                body:formData,
+            })
+            .then((response) => {return response.json()})  
+            .then((responseJson) => {
+                // alert(JSON.stringify(responseJson))
+                if(responseJson.code==200){
+                    self.setState({
+                            showLogin:false,
+                            userName:username,
+                        })
+
+                        errorMsg.innerText = ''
+                        window.location.href = '#/deal'
+                }else{
+                     errorMsg.innerText = responseJson.message 
+                }
+            })
+            .catch((error)=>{
+                 errorMsg.innerText = '服务器繁忙，请稍后重试～'
+                    
+            })
+    
+        
+        }else{
+            return;
+        }
+        
     }
-    /*
-    * 删除cookie
-    * */
-    deleteCookie(name){
-        var date=new Date();
-        date.setTime(date.getTime()-10000);
-        document.cookie=name+"=v; expires="+date.toGMTString();
-    }
+    
     /*
     * 注销
     * */
     logout(){
-        this.deleteCookie('8l_cookie');
-        this.setState({
-            showLogin:true
-        })
-        window.location.href = '#/'
     }
-    /*
-    * 获取cookie
-    * */
-    getCookie(name){
-        var strCookie=document.cookie;
-        var arrCookie=strCookie.split("; ");
-        for(var i=0;i<arrCookie.length;i++){
-            var arr=arrCookie[i].split("=");
-            if(arr[0]==name){
-                //当查到cookie，则不需要登录
-                // console.log( arr[1]);
-                this.setState({
-                    showLogin:false,
-                    userName:arr[1].split('|')[0]
-                })
-                // window.location.href = '#/deal';
-                return;
-            }
-        }
-        //未查到cookie，则进入登录页面
-        this.setState({
-            showLogin:true
-        })
-        window.location.href = '#/'
-        // console.log(arrCookie)
-    }
+    
     /*
     * enter 登录
     * */
@@ -219,8 +225,7 @@ class App extends React.Component {
      * 组件加载完成时的操作
      */
     componentDidMount(){
-        //页码加载时，判断是否有cookie
-        this.getCookie('8l_cookie');
+
     }
 
 
@@ -252,7 +257,7 @@ class App extends React.Component {
 
                     </div>
                 }
-                {this.props.children}
+                 {this.props.children} 
 
             </div>
         )
@@ -262,9 +267,9 @@ class App extends React.Component {
 ReactDOM.render(
     <HashRouter>
       <App>
-        <Route path='/login' component={Login} />
+        {/* <Route path='/login' component={Login} /> */}
           {/*<IndexRedirect to="/login" />*/}
-            <Route exact path="/" component={Deal} />
+            {/* <Route exact path="/" component={Deal} /> */}
             <Route path='/deal' component={Deal} />
             <Route path='/account' component={Account} />
         </App>
