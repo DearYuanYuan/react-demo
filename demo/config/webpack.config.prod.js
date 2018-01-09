@@ -136,7 +136,7 @@ module.exports = {
           // "url" loader works just like "file" loader but it also embeds
           // assets smaller than specified size as data URLs to avoid requests.
           {
-            test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
+            test:  [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/,/\.(woff|woff2|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/],
             loader: require.resolve('url-loader'),
             options: {
               limit: 10000,
@@ -217,13 +217,18 @@ module.exports = {
             // it's runtime that would otherwise processed through "file" loader.
             // Also exclude `html` and `json` extensions so they get processed
             // by webpacks internal loaders.
-            exclude: [/\.js$/, /\.html$/, /\.json$/],
+            exclude: [/\.js$/, /\.html$/, /\.json$/,/\.less$/],
             options: {
               name: 'static/media/[name].[hash:8].[ext]',
             },
           },
           // ** STOP ** Are you adding a new loader?
           // Make sure to add the new loader(s) before the "file" loader.
+           {
+          test: /\.less$/,
+              // loader: 'style!css!postcss!less?outputStyle=expanded'
+              loaders: ['style-loader', 'css-loader', 'less-loader']
+          },
         ],
       },
     ],

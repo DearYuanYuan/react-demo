@@ -8,7 +8,6 @@ import LoadingText from './Loading.js'
 import LoadingAction from "./ActionLoading";
 import LoginBox from  './LoginBox'
 
-let fetchUrl = 'http://139.196.253.89:8080'
 /* 首页 */
 export default class HeadLine extends React.Component {
     constructor(props) {
@@ -53,7 +52,7 @@ export default class HeadLine extends React.Component {
     showDealDetailBox(index,id){
         var self  = this;
         $.ajax({
-            url: fetchUrl+'/api/chain_trans/query_trans_detail/',
+            url: '/api/chain_trans/query_trans_detail/',
             type: 'POST',
             dataType: 'json',
             cache: false,
@@ -134,7 +133,7 @@ export default class HeadLine extends React.Component {
                 showLoadingAction:true,
             })
             $.ajax({
-                url: fetchUrl+'/api/chain_trans/create/',
+                url: '/api/chain_trans/create/',
                 type: 'POST',
                 dataType: 'json',
                 cache: false,
@@ -207,7 +206,7 @@ export default class HeadLine extends React.Component {
                 showLoadingAction:true,
             })
             $.ajax({
-                url: fetchUrl+'/api/chain_trans/transfer/',
+                url: '/api/chain_trans/transfer/',
                 type: 'POST',
                 dataType: 'json',
                 cache: false,
@@ -253,7 +252,7 @@ export default class HeadLine extends React.Component {
     loadDealList(pageNum,pageSize,searchContent){
         var self = this;
         $.ajax({
-            url: fetchUrl+'/api/chain_trans/query_list/',
+            url: '/api/chain_trans/query_list/',
             type: 'POST',
             dataType: 'json',
             cache: false,
@@ -299,7 +298,7 @@ export default class HeadLine extends React.Component {
     loadAssetsTypeList(){
         var self  = this;
         $.ajax({
-            url: fetchUrl+'/api/chain_trans/query_tran_types/',
+            url: '/api/chain_trans/query_tran_types/',
             type: 'POST',
             dataType: 'json',
             cache: false,
@@ -332,7 +331,7 @@ export default class HeadLine extends React.Component {
     loadUsrList(){
         var self  = this;
         $.ajax({
-            url: fetchUrl+'/api/chain_user/query_all/',
+            url: '/api/chain_user/query_all/',
             type: 'POST',
             dataType: 'json',
             cache: false,
@@ -421,7 +420,7 @@ export default class HeadLine extends React.Component {
         // var pageNum = this.state.pageNum
         var self = this;
         $.ajax({
-            url: fetchUrl+'/api/chain_trans/query_list/',
+            url: '/api/chain_trans/query_list/',
             type: 'POST',
             dataType: 'json',
             cache: false,
@@ -471,7 +470,7 @@ export default class HeadLine extends React.Component {
         var assetId = assetId
         //api/chain_trans/down_tran_att/
         $.ajax({
-            url: fetchUrl+'/api/chain_trans/down_tran_att/',
+            url: '/api/chain_trans/down_tran_att/',
             type: 'GET',
             dataType: 'json',
             cache: false,

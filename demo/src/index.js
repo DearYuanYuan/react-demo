@@ -13,7 +13,6 @@ import loginDate from './data/login.json'
 import Validator from './func/form.js'
 import 'whatwg-fetch'
 require('./func/form.js')
-let fetchUrl = 'http://139.196.253.89:8080'
 
 class App extends React.Component {
     constructor(props) {
@@ -168,7 +167,7 @@ class App extends React.Component {
             var formData = new FormData();
             formData.append('username',username)
             formData.append('password',password)
-            fetch(fetchUrl+'/api/login/',
+            fetch('/api/login/',
             {
                 method:'POST',
                 body:formData,
@@ -214,11 +213,38 @@ class App extends React.Component {
             this.login();
         }
     }
+     /*
+    * 获取cookie
+    * */
+    getCookie(name){
+        var strCookie=document.cookie;
+        var arrCookie=strCookie.split("; ");
+        for(var i=0;i<arrCookie.length;i++){
+            var arr=arrCookie[i].split("=");
+            if(arr[0]==name){
+                //当查到cookie，则不需要登录
+                // console.log( arr[1]);
+                this.setState({
+                    showLogin:false,
+                    userName:arr[1].split('|')[0]
+                })
+                // window.location.href = '#/deal';
+                return;
+            }
+        }
+        //未查到cookie，则进入登录页面
+        this.setState({
+            showLogin:true
+        })
+        window.location.href = '#/'
+        // console.log(arrCookie)
+    }
     /**
      * 组件将要加载时的操作
      */
     componentWillMount(){
-
+        //页码加载时，判断是否有cookie
+        this.getCookie('8l_cookie');
     }
 
     /**
