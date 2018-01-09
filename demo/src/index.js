@@ -199,10 +199,45 @@ class App extends React.Component {
         
     }
     
+     /*
+    * 删除cookie
+    * */
+    deleteCookie(name){
+        var date=new Date();
+        date.setTime(date.getTime()-10000);
+        document.cookie=name+"=v; expires="+date.toGMTString();
+    }
     /*
     * 注销
     * */
     logout(){
+        this.setState({
+            loginOutLoading:true,
+        })
+        var self = this
+        $.ajax({
+            url: "api/logout/",
+            type: 'POST',
+            dataType: 'json',
+            cache: false,
+            success:function(data){
+                // console.log(JSON.stringify(data))
+                self.deleteCookie('8l_cookie');
+                self.setState({
+                    showLogin:true,
+                    loginOutLoading:false,
+                })
+                window.location.href = '#/'
+            },
+            error:function(){
+                self.deleteCookie('8l_cookie');
+                self.setState({
+                    showLogin:true,
+                    loginOutLoading:false,
+                })
+                window.location.href = '#/'
+            }
+        })
     }
     
     /*
