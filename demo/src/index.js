@@ -171,6 +171,7 @@ class App extends React.Component {
             {
                 method:'POST',
                 body:formData,
+                credentials: 'include' //携带cookie
             })
             .then((response) => {return response.json()})  
             .then((responseJson) => {
@@ -183,6 +184,7 @@ class App extends React.Component {
 
                         errorMsg.innerText = ''
                         window.location.href = '#/deal'
+                         window.location.reload()
                 }else{
                      errorMsg.innerText = responseJson.message 
                 }
